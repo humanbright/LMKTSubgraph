@@ -1,0 +1,8 @@
+{
+  "arbitrum-sepolia": {
+    "Bonding": {
+      "address": "0x6dE00aEBe1f426E369A79B8DA78443721e4dA050",
+      "startBlock": 105459829
+    }
+  }
+}

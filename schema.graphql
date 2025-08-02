@@ -1,0 +1,67 @@
+type Buy @entity(immutable: true) {
+  id: Bytes!
+  token: Bytes! # address
+  buyer: Bytes! # address
+  sybilIn: BigInt! # uint256
+  tokenOut: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Deployed @entity(immutable: true) {
+  id: Bytes!
+  token: Bytes! # address
+  amount0: BigInt! # uint256
+  amount1: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Graduated @entity(immutable: true) {
+  id: Bytes!
+  token: Bytes! # address
+  agentToken: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Initialized @entity(immutable: true) {
+  id: Bytes!
+  version: BigInt! # uint64
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Launched @entity(immutable: true) {
+  id: Bytes!
+  sender: Bytes! # address
+  token: Bytes! # address
+  pair: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type OwnershipTransferred @entity(immutable: true) {
+  id: Bytes!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Sell @entity(immutable: true) {
+  id: Bytes!
+  token: Bytes! # address
+  seller: Bytes! # address
+  tokenIn: BigInt! # uint256
+  sybilOut: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
