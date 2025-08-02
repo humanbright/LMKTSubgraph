@@ -2,7 +2,7 @@
   "sepolia": {
     "Treasury": {
       "address": "0x859083AcD38f385be2e8af375A27617a8e2AE0f0",
-      "startBlock": 105459829
+      "startBlock": 8896812
     }
   }
 }

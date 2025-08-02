@@ -1,13 +1,13 @@
 {
-  "name": "virtuals-sepolia",
+  "name": "test",
   "license": "UNLICENSED",
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "graph deploy --node https://api.studio.thegraph.com/deploy/ virtuals-sepolia",
-    "create-local": "graph create --node http://localhost:8020/ virtuals-sepolia",
-    "remove-local": "graph remove --node http://localhost:8020/ virtuals-sepolia",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 virtuals-sepolia",
+    "deploy": "graph deploy --node https://api.studio.thegraph.com/deploy/ test",
+    "create-local": "graph create --node http://localhost:8020/ test",
+    "remove-local": "graph remove --node http://localhost:8020/ test",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 test",
     "test": "graph test"
   },
   "dependencies": {

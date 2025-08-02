@@ -10,7 +10,7 @@ dataSources:
     source:
       address: "0x859083AcD38f385be2e8af375A27617a8e2AE0f0"
       abi: Treasury
-      startBlock: 105459829
+      startBlock: 8896812
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
