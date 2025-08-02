@@ -5,40 +5,40 @@ schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
-    name: Bonding
-    network: arbitrum-sepolia
+    name: Treasury
+    network: sepolia
     source:
-      address: "0x0893c9891c9244aaD1c4c1B3588e03B9D7355E1A"
-      abi: Bonding
+      address: "0x859083AcD38f385be2e8af375A27617a8e2AE0f0"
+      abi: Treasury
       startBlock: 105459829
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
-        - Buy
-        - Deployed
-        - Graduated
-        - Initialized
-        - Launched
-        - OwnershipTransferred
-        - Sell
+        - MktPurchased
+        - MktSold
+        - CollateralWhitelisted
+        - CommerceFeeReceived
+        - PriceFeedSet
+        - TokenQueryIdSet
+        - MktPrice
       abis:
-        - name: Bonding
-          file: ./abis/Bonding.json
+        - name: Treasury
+          file: ./abis/Treasury.json
       eventHandlers:
-        - event: Buy(indexed address,indexed address,uint256,uint256)
-          handler: handleBuy
-        - event: Deployed(indexed address,uint256,uint256)
-          handler: handleDeployed
-        - event: Graduated(indexed address,address)
-          handler: handleGraduated
-        - event: Initialized(uint64)
-          handler: handleInitialized
-        - event: Launched(indexed address,indexed address,indexed address,uint256)
-          handler: handleLaunched
-        - event: OwnershipTransferred(indexed address,indexed address)
-          handler: handleOwnershipTransferred
-        - event: Sell(indexed address,indexed address,uint256,uint256)
-          handler: handleSell
-      file: ./src/bonding.ts
+        - event: MktPurchased(indexed address,indexed address,uint256,uint256)
+          handler: handlePurchase
+        - event: MktSold(indexed address,uint256,uint256,indexed address)
+          handler: handleSold
+        - event: CollateralWhitelisted(indexed address,bool)
+          handler: handleWhitelisted
+        - event: CommerceFeeReceived(indexed address,uint256)
+          handler: handleFeeReceived
+        - event: PriceFeedSet(indexed address,indexed address)
+          handler: handleFeedSet
+        - event: TokenQueryIdSet(indexed address,bytes32)
+          handler: handleQueryIdSet
+        - event: MktPrice(uint256,uint256)
+          handler: handlePrice
+      file: ./src/treasury.ts

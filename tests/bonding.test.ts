@@ -9,7 +9,7 @@ import {
 import { Address, BigInt } from "@graphprotocol/graph-ts"
 import { Buy } from "../generated/schema"
 import { Buy as BuyEvent } from "../generated/Bonding/Bonding"
-import { handleBuy } from "../src/bonding"
+import { handleBuy } from "../src/treasury"
 import { createBuyEvent } from "./bonding-utils"
 
 // Tests structure (matchstick-as >=0.5.0)
