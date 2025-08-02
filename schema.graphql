@@ -23,7 +23,7 @@ type MktSold @entity(immutable: true) {
 type CollateralWhitelisted @entity(immutable: true) {
   id: Bytes!
   token: Bytes! # address
-  isWhitelisted: Bool!
+  isWhitelisted: Boolean!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!

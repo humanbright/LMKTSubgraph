@@ -37,7 +37,7 @@ dataSources:
           handler: handleFeeReceived
         - event: PriceFeedSet(indexed address,indexed address)
           handler: handleFeedSet
-        - event: TokenQueryIdSet(indexed address,bytes32)
+        - event: TokenQueryIdSet(indexed address,indexed bytes32)
           handler: handleQueryIdSet
         - event: MktPrice(uint256,uint256)
           handler: handlePrice

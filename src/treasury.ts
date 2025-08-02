@@ -1,28 +1,28 @@
 import {
-  Buy as BuyEvent,
-  Deployed as DeployedEvent,
-  Graduated as GraduatedEvent,
-  Initialized as InitializedEvent,
-  Launched as LaunchedEvent,
-  OwnershipTransferred as OwnershipTransferredEvent,
-  Sell as SellEvent
-} from "../generated/Bonding/Bonding"
+  MktPurchased as MktPurchasedEvent,
+  MktSold as MktSoldEvent,
+  CollateralWhitelisted as CollateralWhitelistedEvent,
+  CommerceFeeReceived as CommerceFeeReceivedEvent,
+  PriceFeedSet as PriceFeedSetEvent,
+  TokenQueryIdSet as TokenQueryIdSetEvent,
+  MktPrice as MktPriceEvent
+} from "../generated/Treasury/Treasury"
 import {
-  Buy,
-  Deployed,
-  Graduated,
-  Initialized,
-  Launched,
-  OwnershipTransferred,
-  Sell
+  MktPurchased,
+  MktSold,
+  CollateralWhitelisted,
+  CommerceFeeReceived,
+  PriceFeedSet,
+  TokenQueryIdSet,
+  MktPrice
 } from "../generated/schema"
 
-export function handleBuy(event: BuyEvent): void {
-  let entity = new Buy(event.transaction.hash.concatI32(event.logIndex.toI32()))
-  entity.token = event.params.token
+export function handlePurchase(event: MktPurchasedEvent): void {
+  let entity = new MktPurchased(event.transaction.hash.concatI32(event.logIndex.toI32()))
+  entity.token = event.params.collateralToken
   entity.buyer = event.params.buyer
-  entity.sybilIn = event.params.sybilIn
-  entity.tokenOut = event.params.tokenOut
+  entity.tokenIn = event.params.collateralAmount
+  entity.tokenOut = event.params.lmktAmount
 
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp
@@ -31,87 +31,86 @@ export function handleBuy(event: BuyEvent): void {
   entity.save()
 }
 
-export function handleDeployed(event: DeployedEvent): void {
-  let entity = new Deployed(
+export function handleSold(event: MktSoldEvent): void {
+  let entity = new MktSold(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
-  entity.token = event.params.token
-  entity.amount0 = event.params.amount0
-  entity.amount1 = event.params.amount1
-
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
-}
-
-export function handleGraduated(event: GraduatedEvent): void {
-  let entity = new Graduated(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.token = event.params.token
-  entity.agentToken = event.params.agentToken
-
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
-}
-
-export function handleInitialized(event: InitializedEvent): void {
-  let entity = new Initialized(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.version = event.params.version
-
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
-}
-
-export function handleLaunched(event: LaunchedEvent): void {
-  let entity = new Launched(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.sender = event.params.sender
-  entity.token = event.params.token
-  entity.pair = event.params.pair
-
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
-}
-
-export function handleOwnershipTransferred(
-  event: OwnershipTransferredEvent
-): void {
-  let entity = new OwnershipTransferred(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.previousOwner = event.params.previousOwner
-  entity.newOwner = event.params.newOwner
-
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
-}
-
-export function handleSell(event: SellEvent): void {
-  let entity = new Sell(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.token = event.params.token
+  entity.token = event.params.collateralToken
+  entity.tokenIn = event.params.lmktAmount
+  entity.tokenOut = event.params.collateralAmount
   entity.seller = event.params.seller
-  entity.tokenIn = event.params.tokenIn
-  entity.sybilOut = event.params.sybilOut
+
+  entity.blockNumber = event.block.number
+  entity.blockTimestamp = event.block.timestamp
+  entity.transactionHash = event.transaction.hash
+
+  entity.save()
+}
+
+export function handleWhitelisted(event: CollateralWhitelistedEvent): void {
+  let entity = new CollateralWhitelisted(
+    event.transaction.hash.concatI32(event.logIndex.toI32())
+  )
+  entity.token = event.params.token
+  entity.isWhitelisted = event.params.isWhitelisted
+
+  entity.blockNumber = event.block.number
+  entity.blockTimestamp = event.block.timestamp
+  entity.transactionHash = event.transaction.hash
+
+  entity.save()
+}
+
+export function handleFeeReceived(event: CommerceFeeReceivedEvent): void {
+  let entity = new CommerceFeeReceived(
+    event.transaction.hash.concatI32(event.logIndex.toI32())
+  )
+  entity.amount = event.params.amount
+  entity.token = event.params.token
+
+  entity.blockNumber = event.block.number
+  entity.blockTimestamp = event.block.timestamp
+  entity.transactionHash = event.transaction.hash
+
+  entity.save()
+}
+
+export function handleFeedSet(event: PriceFeedSetEvent): void {
+  let entity = new PriceFeedSet(
+    event.transaction.hash.concatI32(event.logIndex.toI32())
+  )
+  entity.feed = event.params.feed
+  entity.token = event.params.token
+
+  entity.blockNumber = event.block.number
+  entity.blockTimestamp = event.block.timestamp
+  entity.transactionHash = event.transaction.hash
+
+  entity.save()
+}
+
+export function handleQueryIdSet(
+  event: TokenQueryIdSetEvent
+): void {
+  let entity = new TokenQueryIdSet(
+    event.transaction.hash.concatI32(event.logIndex.toI32())
+  )
+  entity.token = event.params.token
+  entity.query = event.params.queryId
+
+  entity.blockNumber = event.block.number
+  entity.blockTimestamp = event.block.timestamp
+  entity.transactionHash = event.transaction.hash
+
+  entity.save()
+}
+
+export function handlePrice(event: MktPriceEvent): void {
+  let entity = new MktPrice(
+    event.transaction.hash.concatI32(event.logIndex.toI32())
+  )
+  entity.tokenAmount = event.params.lmktAmount
+  entity.collateralAmount = event.params.collateralValue
 
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp
